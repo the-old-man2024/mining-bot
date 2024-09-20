@@ -1,0 +1,103 @@
+h1{
+    font-family: poppins;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+#navlink{
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid black;
+    
+}
+#logo{
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    line-height: 60px;
+    padding: 0 8px;
+    border: 1px solid black;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-family: poppins;
+}
+#mtitle{
+    font-size: 40px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    
+}
+#earn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+input{
+    box-sizing: border-box;
+    width: clamp(300px, 30vw, 400px);
+    height: 50px;
+    font-size: 16px;
+    padding: 0 10px;
+    border-width: 1px;
+    border-radius: 4px;
+}
+button{
+    border-radius: 4px;
+    width: 100px;
+    height: 53px;
+    font-family: poppins;
+    font-size: 16px;
+    background-color: rgb(255, 165, 0);
+    font-weight: 600;
+}
+body{
+    height: 100vh;
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#farmingMessage p{
+    font-family: poppins; 
+    font-weight: 600; 
+    color: aliceblue;
+    font-size: 30px;
+}
+#farmingMessage{
+    background-color: rgb(128, 128, 128, .2);
+    padding: 0 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+@media only screen and (max-width: 600px) {
+    header{
+        flex-direction: column;
+    }
+    #navlink{
+        width: 100vw;
+    }
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    button{
+        width: 90vw;
+    }
+    input{
+        width: 90vw;
+    }
+}
